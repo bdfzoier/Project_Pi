@@ -4,6 +4,7 @@
 #include<iostream>
 #include<algorithm>
 using namespace std;
+//整数高精度封装
 struct lll{
     static const int M=5005;
     static char str[M];
