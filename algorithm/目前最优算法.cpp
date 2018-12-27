@@ -2,7 +2,7 @@
 # include <cstring>
 # define max(a,b) (a>b?a:b)
 # define min(a,b) (a<b?a:b)
-const int NR = 5050;
+const int NR = 10050;
 struct lld{
     int l, r;
     int s[NR + 505];
@@ -85,6 +85,6 @@ int main(){
         last=last/(2*i+1);
         pi=pi+last;
     }
-    pi.print(n);
+    pi.print();
     return 0;
 }
