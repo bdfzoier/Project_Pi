@@ -1,105 +1,100 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <cmath>
+#include <cstring>
+#include <cstdio>
 using namespace std;
+
 const int MAXN = 2000 + 5;
-string fst, scd;
-int in1[MAXN], dc1[MAXN];
-int in2[MAXN], dc2[MAXN];
-int len1, len2; 
-int pnt1, pnt2;
-int crry;
-void prePrcs(){ // PreProcessing func
-	pnt1 = len1;
-	for(int i = 0 ; i < len1 ; i ++){
-		if(fst[i] == '.'){ // if now == '.'
-			pnt1 = i;
-			break;
+
+struct Superfloat{
+	private:
+		char num[MAXN];
+		int in[MAXN], dc[MAXN], len, pnt;
+	public:
+		Superfloat(){
+			memset(num, 0, sizeof(num));
+			memset(in, 0, sizeof(in));
+			memset(dc, 0, sizeof(dc));
+			len = 0;
+			pnt = 0;
 		}
-		else{ // if now is number
-			in1[i] = fst[i] - '0';
+		void Input(){
+			scanf("%s", num);
+			len = strlen(num);
+			pnt = len;
+			for (int i = 0;i < len;i++){
+				if (num[i] == '.'){
+					pnt = i;
+					break;
+				}else{
+					in[i] = num[i] - '0';
+				}
+			}
+			if (pnt != len){
+				for(int i = pnt + 1;i < len;i++){
+					dc[i - pnt - 1] = num[i] - '0';
+				}
+			}
+			for(int i = 0;i < pnt / 2;i++){
+				swap(in[pnt - i - 1], in[i]);
+			}
 		}
-	}
-	if(pnt1 != len1){ // if '.' isn't the last
-		for(int i = pnt1 + 1 ; fst[i] != 0 ; i ++){
-			dc1[i - pnt1 - 1] = fst[i] - '0';
-		} // keep finding number
-	}
-	pnt2 = len2;
-	for(int i = 0 ; scd[i] != 0 ; i ++){
-		if(scd[i] == '.'){ // if now == '.'
-			pnt2 = i;
-			break;
+		void Output(){
+			int tp = 0;
+			for(int i = 2000 ; i >= 0 ; i --){ // search first number
+				if(in[i]){
+					tp = i;
+					break;
+				}
+			}
+			for(int i = tp ; i >= 0 ; i --){
+				putchar(in[i] + '0');
+			}
+			tp = -1;
+			for(int i = 2000 ; i >= 0 ; i --){
+				if(dc[i]){
+					tp = i;
+					break;
+				}
+			}
+			if(tp != -1){
+				putchar('.');
+				for(int i = 0 ; i <= tp ; i ++){
+					putchar(dc[i] + '0'); 
+				}
+			}
 		}
-		else{ // if now is number
-			in2[i] = scd[i] - '0';
+		Superfloat operator + (const Superfloat& b) const{
+			int crry = 0;
+			Superfloat c;
+			for(int i = 2000 ; i >= 0 ; i --){
+				c.dc[i] += dc[i] + b.dc[i];
+				if(i == 0){ // iza c4rry tyM!
+					crry = c.dc[0] / 10;
+					c.dc[0] %= 10;
+				}
+				else if(c.dc[i] > 9){ // smol c4rry...
+					c.dc[i - 1] += c.dc[i] / 10;
+					c.dc[i] %= 10;
+				}
+			}
+			c.in[0] += crry;
+			for(int i = 0 ; i <= min(pnt, b.pnt) ; i ++){
+				c.in[i] += in[i] + b.in[i];
+				if(c.in[i] >= 10){
+					c.in[i + 1] += c.in[i] / 10;
+					c.in[i] %= 10; 
+				}
+			}
+			return c;
 		}
-	}
-	if(pnt2 != len2){ // if '.' isn't the last
-		for(int i = pnt2 + 1 ; scd[i] != 0 ; i ++){
-			dc2[i - pnt2 - 1] = scd[i] - '0';
-		} // keep finding number
-	}
-	for(int i = 0 ; i < pnt1 / 2 ; i ++){
-		swap(in1[pnt1 - i - 1], in1[i]);
-	} // swap int part 1
-	for(int i = 0 ; i < pnt2 / 2 ; i ++){
-		swap(in2[pnt2 - i - 1], in2[i]);
-	} // swap int part 2
-}
-void calcDcm(){
-	for(int i = 2000 ; i >= 0 ; i --){
-		dc1[i] += dc2[i];
-		if(i == 0){ // iza c4rry tyM!
-			crry = dc1[0] / 10;
-			dc1[0] %= 10;
-		}
-		else if(dc1[i] > 9){ // smol c4rry...
-			dc1[i - 1] += dc1[i] / 10;
-			dc1[i] %= 10;
-		}
-	}
-}
-void calcInt(){
-	in1[0] += crry;
-	for(int i = 0 ; i <= min(pnt1, pnt2) ; i ++){
-		in1[i] += in2[i];
-		if(in1[i] >= 10){
-			in1[i + 1] += in1[i] / 10;
-			in1[i] %= 10; 
-		}
-	}
-}
-void print(){
-	int tp = 0;
-	for(int i = 2000 ; i >= 0 ; i --){ // search first number
-		if(in1[i]){
-			tp = i;
-			break;
-		}
-	}
-	for(int i = tp ; i >= 0 ; i --){
-		cout << in1[i];
-	}
-	tp = -1;
-	for(int i = 2000 ; i >= 0 ; i --){
-		if(dc1[i]){
-			tp = i;
-			break;
-		}
-	}
-	if(tp != -1){
-		cout << '.';
-		for(int i = 0 ; i <= tp ; i ++){
-			cout << dc1[i];
-		}
-	}
-}
+};
+
 int main(){
-	cin >> fst >> scd; // ya 1 usd cin 1 sux
-	len1 = fst . length();
-    len2 = scd . length();
-	prePrcs(); // PreProcessing
-	calcDcm(); // CalculateDecimal
-	calcInt(); // CalculateInteger
-	print(); // Print
+	Superfloat a, b, c;
+	a.Input();
+	b.Input();
+	c = a + b;
+	c.Output();
 	return 0;
 }
