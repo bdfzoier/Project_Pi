@@ -3,8 +3,8 @@
 # include <iostream>
 # include <algorithm>
 using namespace std;
+const int DC = 10;
 struct lld{
-    static const int DC = 10;
     static const int NR = 30050;
     static char str[NR+510];
     int l, r;
