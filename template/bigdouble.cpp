@@ -27,7 +27,10 @@ struct lld{
     	F(i, q.l, m){
     		int p = s[NR + i] - x.s[NR + i] + c;
     		c = (p - 9) / 10;
-    		q.s[NR + i] = p + c * 10;
+    		q.s[NR + i] = p - c * 10;
+    		if (q.s[NR + i] < 0){
+    			printf("ERROR\n");
+    		}
     		if (q.s[NR + i] != 0) flag = true;
     		if (!flag) q.l++;
     	}
@@ -95,6 +98,3 @@ struct lld{
         print(-l);
     }
 };
-int main(){
-    return 0;
-}
