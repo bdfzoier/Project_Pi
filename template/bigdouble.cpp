@@ -162,20 +162,28 @@ struct lld{
         for (int i = r - 1; i >= -NR; i--){
             o = o * DC;
             o = o + s[NR + i];
+            if((o.r-o.l)<(x.r-x.l))continue;
             while(!(o < x)){
                 q.s[NR + i]++;
                 o = o - x;
             }
-            if (q.s[NR + i] != 0) flag = true;
-            if (flag) q.r = max(q.r, i + 1);
-            q.l = i;
+            if (!flag && q.s[NR + i] != 0){
+                q.r = max(q.r, i + 1);
+                flag=1;
+            }
+            q.l = (i<0?i:0);
             if (o.l == o.r) break;
         }
+        for(int i=l;i<r;i++){
+            q.s[NR+i+1]+=q.s[NR+i]/DC;
+            q.s[NR+i]%=DC;
+            if(q.s[NR+q.r])q.r++;
+        }
+        while(q.s[NR+q.l]==0)q.l++;
         return q;
     }
 };
 char lld::str[NR+510];
 int main(){
-    //main
     return 0;
 }
