@@ -134,8 +134,8 @@ struct lld{
         for (int i=l;i<r;i++)
             for(int j=q.l;j<q.r;j++){
                 q.s[NR+i+j]+=s[i+NR]*x.s[j+NR];
-                q.s[NR+i+j+1]+=q.s[NR+i+j]/10;
-                q.s[NR+i+j]%=10;
+                q.s[NR+i+j+1]+=q.s[NR+i+j]/DC;
+                q.s[NR+i+j]%=DC;
             }
         while(q.s[q.l+NR]==0 && q.l<0)q.l++;
         while(q.s[q.r+NR-1]==0 && q.r>=0)q.r--;
