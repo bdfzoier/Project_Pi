@@ -2,8 +2,9 @@
 # include <cstring>
 # include <algorithm>
 using namespace std;
-const int NR = 30050;
 struct lld{
+    static const int NR = 30050;
+    static char str[NR+510];
     int l, r;
     int s[NR + 505];
     lld(){
@@ -85,6 +86,19 @@ struct lld{
         }
         return q;
     }
+    void read(){
+        scanf("%s",str);
+        int len=strlen(str);
+        int dot=0;
+        for(dot = dot; dot < len; dot++)//find where "." is
+            if(str[dot]=='.')
+                break;
+        l=dot+1-len;r=dot;
+        for(int i=0;i<dot;i++)
+            s[NR+r-i-1]=str[i]-'0';
+        for(int i=dot+1;i<len;i++)
+            s[NR+r-i]=str[i]-'0';
+    }
     void print(int x){
         if (r <= 0) printf("0");
         for (int i = max(r - 1, -1); i >= -x; i--){
@@ -97,3 +111,7 @@ struct lld{
         print(-l);
     }
 };
+char lld::str[NR+510];
+int main(){
+    return 0;
+}
