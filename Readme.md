@@ -39,3 +39,7 @@ void func(){
 https://blog.csdn.net/zxy160/article/details/78470702
 
 https://wenku.baidu.com/view/716dbac708a1284ac85043bf.html
+
+http://www.cppfans.com/articles/basecalc/c_pi_10000.asp
+
+https://blog.csdn.net/qin_zhangyongheng/article/details/8033942

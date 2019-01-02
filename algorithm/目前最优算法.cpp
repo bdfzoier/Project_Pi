@@ -79,7 +79,7 @@ lld pi,last;int n;
 int main(){
     pi=2;last=2;
     scanf("%d",&n);
-    freopen("pi.out","w",stdout);
+    //freopen("pi.out","w",stdout);
     for(int i=1;i<=n;i++){
         last=last*i;
         last=last/(2*i+1);
