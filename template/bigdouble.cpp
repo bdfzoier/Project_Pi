@@ -99,25 +99,18 @@ struct lld{
         return q;
     }
     lld operator - (const lld &x) const{
-        lld q;
-        q.l = min(l, x.l);
-        bool flag = false;
-        int c = 0, m = max(r, x.r);
-        q.r = m;
-        for (int i = q.l; i < m; i++){
-            int p = s[NR + i] - x.s[NR + i] + c;
-            c = (p - 9) / DC;
-            q.s[NR + i] = p - c * DC;
-            if (q.s[NR + i] < 0){
-                printf("ERROR\n");
+        lld q;q.l=min(l,x.l);q.r=max(r,x.r);
+        for(int i=q.l;i<q.r;i++)
+            q.s[i+NR]=s[i+NR]-x.s[i+NR];
+        for(int i=q.l;i<q.r;i++){
+            q.s[NR+i+1]+=q.s[NR+i]/DC;
+            if(q.s[NR+i]<0){
+                q.s[NR+i]+=DC;
+                q.s[NR+i+1]--;
             }
-            if (q.s[NR + i] != 0) flag = true;
-            if (!flag) q.l++;
         }
-        for (int i = q.r - 1; i >= q.l; i--){
-            if (q.s[NR + i] != 0) break;
-            q.r--;
-        }
+        while(q.r>=0 && q.s[NR+q.r-1]==0)q.r--;
+        while(q.l<=0 && q.s[NR+q.l]==0)q.l++;
         return q;
     }
     lld operator * (const int &x) const{
