@@ -1,8 +1,8 @@
 # include <cstdio>
 # include <cstring>
 # include <algorithm>
+# define F(i, a, b) for (int i = a; i < b; i++)
 using namespace std;
-
 const int NR = 30050;
 struct lld{
     int l, r;
@@ -95,3 +95,6 @@ struct lld{
         print(-l);
     }
 };
+int main(){
+    return 0;
+}
