@@ -1,7 +1,6 @@
 # include <cstdio>
 # include <cstring>
 # include <algorithm>
-# define F(i, a, b) for (int i = a; i < b; i++)
 using namespace std;
 const int NR = 30050;
 struct lld{
@@ -24,7 +23,7 @@ struct lld{
     	bool flag = false;
     	int c = 0, m = max(r, x.r);
     	q.r = m;
-    	F(i, q.l, m){
+    	for (int i = q.l; i < m; i++){
     		int p = s[NR + i] - x.s[NR + i] + c;
     		c = (p - 9) / 10;
     		q.s[NR + i] = p - c * 10;
