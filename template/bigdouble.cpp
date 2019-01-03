@@ -25,15 +25,19 @@ struct lld{
     void read(){
         scanf("%s",str);
         int len=strlen(str);
-        int dot=0;
+        int dot=0;bool f=0;
         for(dot = dot; dot < len; dot++)//find where "." is
-            if(str[dot]=='.')
+            if(str[dot]=='.'){
+                f=1;
                 break;
-        l=dot-len;r=dot;
+            }
+        l=dot-len+f;r=dot;
         for(int i=0;i<dot;i++)
             s[NR+r-i-1]=str[i]-'0';
         for(int i=dot+1;i<len;i++)
             s[NR+r-i]=str[i]-'0';
+        while(r>=0 && s[NR+r-1]==0)r--;
+        while(l<=0 && s[NR+l]==0)l++;
     }
     void print(int x){
         if (r <= 0) printf("0");
