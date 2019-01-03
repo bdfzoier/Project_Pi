@@ -61,6 +61,8 @@ struct lld{
         puts("");
     }
     void operator = (const int &x) {
+        l=r=0;
+        memset(s, 0, sizeof(s));
         int p = x;
         while (p){
             s[NR + r++] = p % DC;
@@ -150,7 +152,7 @@ struct lld{
         q.r = r;
         bool flag = false;
         int o = 0;
-        for (int i = r - 1; i >= -NR; i--){
+        for (int i = r - 1; i >= -accuRacy; i--){
             o = o * DC + s[NR + i];
             q.s[NR + i] = o / x;
             o = o % x;
