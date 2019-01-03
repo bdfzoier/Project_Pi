@@ -171,7 +171,7 @@ struct lld{
             o = o * DC;
             o = o + s[NR + i];
             //若长度不足则跳过
-            if((o.r-o.l)<(x.r-x.l))continue;
+            if((o.r-o.l)<(save_x.r-save_x.l))continue;
             int cnt=0;
             while(!(o < save_x)){
                 cnt++;
@@ -189,7 +189,6 @@ struct lld{
         while(q.l<0 && q.s[NR+q.l]==0)q.l++;
         return q;
     }
-    
 };
 char lld::str[NR+510];
 int main(){
