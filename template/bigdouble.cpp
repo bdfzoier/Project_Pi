@@ -90,18 +90,24 @@ struct lld{
     }
     lld operator + (const lld &x) const{
         lld q;
-        bool flag = false;
-        q.l = min(x.l, l);
-        int c = 0;
-        for (int i = q.l; i < MAXR-10; i++){
-            if (i >= r && i >= x.r && c == 0) break;
-            int p = s[NR + i] + x.s[NR + i] + c;
-            q.s[NR + i] = p % DC;
-            c = p / DC;
-            if (q.s[NR + i] != 0) flag  = true;
-            if (!flag) q.l++;
-            q.r = i + 1;
+        q.l = min(x.l, l);q.r=max(x.r,r);
+        for(int i=q.l;i<q.r;i++)
+            q.s[NR+i]=s[NR+i]+x.s[NR+i];
+        bool f=0;
+        for(int i=q.l;i<q.r;i++){
+            if(q.s[NR+i]>=DC){
+                q.s[NR+i]-=DC;
+                q.s[NR+i+1]++;
+            }
+            if(q.s[NR+i] && !f){
+                f=1;
+                q.l=i;
+            }
+            //if(q.s[q.r+NR])
+            //    q.r++;
         }
+        if(q.s[q.r+NR])
+            q.r++;
         return q;
     }
     lld operator - (const lld &x) const{
