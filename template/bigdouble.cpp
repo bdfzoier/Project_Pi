@@ -166,6 +166,7 @@ struct lld{
             if (!flag) q.r--;
             q.l = i;
         }
+        while(q.s[q.l+NR]==0 && q.l<0)q.l++;
         return q;
     }
     lld operator / (const lld &x) const{
