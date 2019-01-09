@@ -111,7 +111,7 @@ struct lld{
         return q;
     }
     lld operator - (const lld &x) const{
-        lld q;q.l=min(l,x.l);q.r=max(r,x.r);
+        lld q;q.l=-accuRacy;q.r=max(r,x.r);
         for(int i=q.l;i<q.r;i++)
             q.s[i+NR]=s[i+NR]-x.s[i+NR];
         for(int i=q.l;i<q.r;i++){
